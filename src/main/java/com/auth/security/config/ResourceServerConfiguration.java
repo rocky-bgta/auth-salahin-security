@@ -35,13 +35,13 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
-        http
-
-                .authorizeRequests()
-                .antMatchers("/admin/*")
-                .hasAnyRole("ADMIN")
-                .antMatchers("/hello/*")
-                .authenticated();
+//        http
+//
+//                .authorizeRequests()
+//                .antMatchers("/admin/*")
+//                .hasAnyRole("ADMIN")
+//                .antMatchers("/hello/*")
+//                .authenticated();
 
         http
                 .csrf().disable()
@@ -52,7 +52,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .exceptionHandling().accessDeniedHandler(oauthAccessDeniedHandler)
                 .and()
                 .headers()
-                .frameOptions().policy(FrameOptionsHeaderWriter.DenyHeaderWriter.X_FRAME_OPTIONS)
+                .frameOptions().deny()
                 .cacheControl().disable()
                 .contentTypeOptions().disable()
                 .httpStrictTransportSecurity().disable()
