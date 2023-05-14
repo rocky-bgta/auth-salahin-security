@@ -15,9 +15,10 @@ import java.util.Arrays;
 
 @Configuration
 public class WebBeans {
+    private static final String RESOURCE_ID = "myrestservice";
     @Bean(name = "vcasheClientDetails")
     public ClientDetailsServiceImpl clientDetails() {
-        return new ClientDetailsServiceImpl();
+        return new ClientDetailsServiceImpl(RESOURCE_ID);
     }
 
     @Bean(name = "vcasheAuthenticationProvider")
