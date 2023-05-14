@@ -20,6 +20,7 @@ import org.springframework.security.oauth2.provider.token.AuthenticationKeyGener
 import org.springframework.security.oauth2.provider.token.DefaultAuthenticationKeyGenerator;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
 import javax.sql.DataSource;
@@ -40,7 +41,7 @@ import java.util.*;
  * @author Dave Syer
  */
 
-@Component
+@Service
 public class JdbcTokenStore implements TokenStore {
 
 	private static final Log LOG = LogFactory.getLog(JdbcTokenStore.class);
@@ -54,7 +55,11 @@ public class JdbcTokenStore implements TokenStore {
 	@Value("${access_token_expiry_time}")
 	private int accessTokenValiditySeconds;
 
+
+	private DataSourceConfig dataSourceConfig = new DataSourceConfig();
+
 	//private final int refreshTokenValiditySeconds; // Refresh token expiration time in seconds
+
 
 
 	private static final String DEFAULT_ACCESS_TOKEN_INSERT_STATEMENT = "insert into oauth_access_token (token_id, token, authentication_id, user_name, client_id, authentication, refresh_token, expiration) values (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -118,9 +123,8 @@ public class JdbcTokenStore implements TokenStore {
 	private final JdbcTemplate jdbcTemplate;
 
 
-	@Autowired
-	@Qualifier("vcasheDataSource")
-	DataSource dataSource;
+
+	private DataSource dataSource = dataSourceConfig.dataSource();
 
 	public JdbcTokenStore() {
 		Assert.notNull(dataSource, "DataSource required");

@@ -59,6 +59,6 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .xssProtection().disable()
                 .and()
                 .authorizeRequests()
-                .antMatchers("/oauth/token").fullyAuthenticated();
+                .antMatchers("/oauth/token").permitAll();
     }
 }

@@ -4,6 +4,7 @@ import com.auth.security.config.CustomUserAuthenticationProvider;
 import com.auth.security.service.ClientDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
@@ -14,6 +15,7 @@ import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEn
 import java.util.Arrays;
 
 @Configuration
+@PropertySource({ "classpath:application.properties" })
 public class WebBeans {
     private static final String RESOURCE_ID = "myrestservice";
     @Bean(name = "vcasheClientDetails")
@@ -53,6 +55,4 @@ public class WebBeans {
     public OAuth2AccessDeniedHandler oauthAccessDeniedHandler() {
         return new OAuth2AccessDeniedHandler();
     }
-
-
 }
