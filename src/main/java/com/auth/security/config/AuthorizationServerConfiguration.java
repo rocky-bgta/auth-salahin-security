@@ -28,7 +28,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     TokenStore tokenStore = new InMemoryTokenStore();
 
     @Autowired
-    @Qualifier("authenticationManagerBean")
+    @Qualifier("vcasheAuthenticationManager")
     AuthenticationManager authenticationManager;
 
     @Autowired
