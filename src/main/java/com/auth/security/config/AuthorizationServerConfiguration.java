@@ -14,6 +14,8 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
+import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.InMemoryTokenStore;
 
 @Configuration
 @EnableAuthorizationServer
@@ -22,11 +24,11 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private static final String RESOURCE_ID = "myrestservice";
     //TokenStore tokenStore = new InMemoryTokenStore();
 
-    @Autowired
-    JdbcTokenStore tokenStore;
+    //@Autowired
+    TokenStore tokenStore = new InMemoryTokenStore();
 
     @Autowired
-    @Qualifier("vcasheAuthenticationManager")
+    @Qualifier("authenticationManagerBean")
     AuthenticationManager authenticationManager;
 
     @Autowired
@@ -76,9 +78,9 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         return new BCryptPasswordEncoder();
     }
 
-//    public static void main(String[] args) {
-//        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//        String encodedPassword = encoder.encode("password");
-//        System.out.println(encodedPassword);
-//    }
+    public static void main(String[] args) {
+        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        String encodedPassword = encoder.encode("9999");
+        System.out.println(encodedPassword);
+    }
 }
