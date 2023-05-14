@@ -72,12 +72,6 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
         clients.withClientDetails(clientDetailsService);
     }
 
-
-    @Bean
-    public BCryptPasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
-    }
-
     public static void main(String[] args) {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         String encodedPassword = encoder.encode("9999");

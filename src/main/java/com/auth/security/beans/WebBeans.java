@@ -8,6 +8,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.provider.client.ClientCredentialsTokenEndpointFilter;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
 import org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint;
@@ -20,7 +21,9 @@ public class WebBeans {
     private static final String RESOURCE_ID = "myrestservice";
     @Bean(name = "vcasheClientDetails")
     public ClientDetailsServiceImpl clientDetails() {
-        return new ClientDetailsServiceImpl(RESOURCE_ID);
+        ClientDetailsServiceImpl clientDetailsServiceImpl = new ClientDetailsServiceImpl();
+        clientDetailsServiceImpl.setResourceId(RESOURCE_ID);
+        return clientDetailsServiceImpl;
     }
 
     @Bean(name = "vcasheAuthenticationProvider")
@@ -49,6 +52,11 @@ public class WebBeans {
         entryPoint.setRealmName("springsec/client");
         entryPoint.setTypeName("Basic");
         return entryPoint;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder encoder(){
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
