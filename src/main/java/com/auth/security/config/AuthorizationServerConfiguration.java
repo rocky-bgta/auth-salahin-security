@@ -48,8 +48,13 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-        clients.inMemory().withClient("myClientApp").authorizedGrantTypes("password","refresh_token")
-                .scopes("read","write").secret(encoder().encode("9999")).resourceIds(RESOURCE_ID);
+        clients.
+                inMemory()
+                        .withClient("myClientApp")
+                        .authorizedGrantTypes("password","refresh_token")
+                        .scopes("read","write")
+                        .secret(encoder().encode("9999"))
+                        .resourceIds(RESOURCE_ID);
     }
 
     @Bean
