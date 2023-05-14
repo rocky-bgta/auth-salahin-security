@@ -1,3 +1,4 @@
+/*
 package com.auth.security.service;
 
 import com.auth.security.entites.User;
@@ -20,3 +21,4 @@ public class CustomUserDetailsService implements UserDetailsService {
         return new org.springframework.security.core.userdetails.User(user.getName(), user.getPassword(), user.getRoles());
     }
 }
+*/
