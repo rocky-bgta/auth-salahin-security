@@ -1,6 +1,6 @@
 package com.auth.security.config;
 
-import com.auth.security.service.CustomUserDetailsService;
+import com.auth.security.service.security.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
