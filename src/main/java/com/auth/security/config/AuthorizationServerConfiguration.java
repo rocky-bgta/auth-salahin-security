@@ -51,7 +51,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                 inMemory()
                         .withClient("myClientApp")
                         .authorizedGrantTypes("password","refresh_token")
-                        .scopes("read","write")
+                        .scopes("read","write","trust")
                         .secret(encoder().encode("9999"))
                         .resourceIds(RESOURCE_ID);
     }

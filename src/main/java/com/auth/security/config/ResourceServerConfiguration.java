@@ -19,6 +19,10 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
+                .csrf()
+                    .disable()
+                .formLogin()
+                    .disable()
                 .authorizeRequests()
                 .antMatchers("/admin/*")
                 .hasAnyRole("ADMIN")
