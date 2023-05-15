@@ -1,5 +1,7 @@
 package com.auth.security.config;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
+
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
 import java.math.BigInteger;
@@ -7,7 +9,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 
-public class PasswordEncryptor {
+
+public class CustomPasswordEncoder implements PasswordEncoder {
 
 	public static final String PBKDF2_ALGORITHM = "PBKDF2WithHmacSHA1";
 
@@ -20,13 +23,34 @@ public class PasswordEncryptor {
     public static final int SALT_INDEX = 1;
     public static final int PBKDF2_INDEX = 2;
 
+    @Override
+    public String encode(CharSequence rawPassword) {
+        try {
+            return createHash(rawPassword.toString());
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeySpecException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public boolean matches(CharSequence rawPassword, String encodedPassword) {
+        try {
+            return validatePassword(rawPassword.toString(), encodedPassword);
+        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+            // Handle the exception
+            return false;
+        }
+    }
+
     /**
      * Returns a salted PBKDF2 hash of the password.
      *
      * @param   password    the password to hash
      * @return              a salted PBKDF2 hash of the password
      */
-    public static String createHash(String password)
+    private static String createHash(String password)
         throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         return createHash(password.toCharArray());
@@ -38,7 +62,7 @@ public class PasswordEncryptor {
      * @param   password    the password to hash
      * @return              a salted PBKDF2 hash of the password
      */
-    public static String createHash(char[] password)
+    private static String createHash(char[] password)
         throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         // Generate a random salt
@@ -59,7 +83,7 @@ public class PasswordEncryptor {
      * @param   correctHash     the hash of the valid password
      * @return                  true if the password is correct, false if not
      */
-    public static boolean validatePassword(String password, String correctHash)
+    private static boolean validatePassword(String password, String correctHash)
         throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         return validatePassword(password.toCharArray(), correctHash);
@@ -72,7 +96,7 @@ public class PasswordEncryptor {
      * @param   correctHash     the hash of the valid password
      * @return                  true if the password is correct, false if not
      */
-    public static boolean validatePassword(char[] password, String correctHash)
+    private static boolean validatePassword(char[] password, String correctHash)
         throws NoSuchAlgorithmException, InvalidKeySpecException
     {
         // Decode the hash into its parameters

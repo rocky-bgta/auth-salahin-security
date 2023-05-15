@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.configurers.ClientDetailsServiceConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
@@ -34,7 +35,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 //    private BCryptPasswordEncoder encoder;
 
     @Autowired
-    private SecurityConfigPassword passwordEncryptor;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer authorizationServerEndpointsConfigurer) throws Exception {
@@ -59,7 +60,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                         .withClient("myClientApp")
                         .authorizedGrantTypes("password","refresh_token")
                         .scopes("read","write","trust")
-                        .secret(PasswordEncryptor.createHash("9999"))
+                        .secret(passwordEncoder.encode("9999"))
                         .resourceIds(RESOURCE_ID);
     }
 

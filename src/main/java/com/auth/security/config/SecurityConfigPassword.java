@@ -1,3 +1,4 @@
+/*
 package com.auth.security.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,3 +40,4 @@ public class SecurityConfigPassword {
 
     // Other security configurations...
 }
+*/
