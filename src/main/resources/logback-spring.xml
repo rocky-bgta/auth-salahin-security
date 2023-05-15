@@ -3,7 +3,7 @@
     <property name="LOG_PATH" value="./logs" />
 
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${LOG_PATH}/myapp.log</file>
+        <file>${LOG_PATH}/vcashe-log.log</file>
         <encoder>
             <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
         </encoder>
