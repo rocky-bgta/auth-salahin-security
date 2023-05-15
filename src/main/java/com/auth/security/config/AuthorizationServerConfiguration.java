@@ -29,6 +29,13 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
+
+//    @Autowired
+//    private BCryptPasswordEncoder encoder;
+
+    @Autowired
+    private SecurityConfigPassword passwordEncryptor;
+
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer authorizationServerEndpointsConfigurer) throws Exception {
         authorizationServerEndpointsConfigurer
@@ -52,14 +59,14 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                         .withClient("myClientApp")
                         .authorizedGrantTypes("password","refresh_token")
                         .scopes("read","write","trust")
-                        .secret(encoder().encode("9999"))
+                        .secret(PasswordEncryptor.createHash("9999"))
                         .resourceIds(RESOURCE_ID);
     }
 
-    @Bean
-    public BCryptPasswordEncoder encoder(){
-        return new BCryptPasswordEncoder();
-    }
+//    @Bean
+//    public BCryptPasswordEncoder encoder(){
+//        return new BCryptPasswordEncoder();
+//    }
 
 //    public static void main(String[] args) {
 //        BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
