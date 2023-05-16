@@ -54,9 +54,7 @@
 			<optional>true</optional>
 		</dependency>
 		<!-- SLF4J and Logback -->
-		<!-- Exclude logback-classic -->
-
-
+		<!-- Exclude spring boot stater log -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter</artifactId>
