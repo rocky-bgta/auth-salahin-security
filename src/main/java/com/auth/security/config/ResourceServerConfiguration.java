@@ -24,6 +24,7 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .formLogin()
                     .disable()
                 .authorizeRequests()
+                .antMatchers("/authenticate").permitAll()
                 .antMatchers("/admin/*").hasAnyRole("ADMIN")
                 .antMatchers("/hello/*").hasAnyRole("SUPPORT")
                 .anyRequest()
