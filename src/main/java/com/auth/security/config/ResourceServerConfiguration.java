@@ -1,5 +1,6 @@
 package com.auth.security.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
@@ -10,6 +11,9 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
     private static final String RESOURCE_ID = "myrestservice";
+
+    @Autowired
+    private CustomLogoutHandler customLogoutHandler;
 
     @Override
     public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
@@ -27,13 +31,12 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/admin/*").hasAnyRole("ADMIN")
                 .antMatchers("/hello/*").hasAnyRole("SUPPORT")
-                    .authenticated()
                 .and()
                     .logout()
                     .invalidateHttpSession(true)
                     .clearAuthentication(true)
                     .deleteCookies("JSESSIONID")
                     .logoutUrl("/logout")
-                    .logoutSuccessHandler(new CustomLogoutHandler());
+                    .logoutSuccessHandler(customLogoutHandler);
     }
 }

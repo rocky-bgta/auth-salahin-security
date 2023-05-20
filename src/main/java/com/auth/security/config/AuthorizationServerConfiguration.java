@@ -24,7 +24,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     private static final String RESOURCE_ID = "myrestservice";
 
     @Autowired
-    private TokenStore tokenStore;
+    private VcasheTokenStore vcasheTokenStore;
 
     //TokenStore tokenStore = new InMemoryTokenStore();
 
@@ -44,7 +44,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Override
     public void configure(AuthorizationServerEndpointsConfigurer authorizationServerEndpointsConfigurer) throws Exception {
         authorizationServerEndpointsConfigurer
-                .tokenStore(tokenStore)
+                .tokenStore(vcasheTokenStore)
                 .authenticationManager(authenticationManager)
                 .userDetailsService(customUserDetailsService);
     }
@@ -54,7 +54,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     public DefaultTokenServices tokenServices(){
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
         defaultTokenServices.setSupportRefreshToken(true);
-        defaultTokenServices.setTokenStore(this.tokenStore);
+        defaultTokenServices.setTokenStore(this.vcasheTokenStore);
         return defaultTokenServices;
     }
 
@@ -65,7 +65,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                         .withClient("myClientApp")
                         .authorizedGrantTypes("password","refresh_token")
                         .scopes("read","write","trust")
-                        .secret(encoder().encode("9999"))
+                        .secret(passwordEncoder.encode("9999"))
                         .accessTokenValiditySeconds(24 * 365 * 60 * 60)
                         .resourceIds(RESOURCE_ID);
     }

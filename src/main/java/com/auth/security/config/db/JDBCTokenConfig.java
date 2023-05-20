@@ -1,11 +1,12 @@
 package com.auth.security.config.db;
 
+import com.auth.security.config.VcasheTokenStore;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.security.oauth2.provider.token.TokenStore;
-import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
 import javax.sql.DataSource;
 
@@ -35,7 +36,9 @@ public class JDBCTokenConfig {
     }
 
     @Bean
-    public TokenStore tokenStore() {
-        return new JdbcTokenStore(dataSource());
+    @Primary
+    public VcasheTokenStore tokenStore() {
+        VcasheTokenStore vcasheTokenStore = new VcasheTokenStore(dataSource());
+        return vcasheTokenStore;
     }
 }
