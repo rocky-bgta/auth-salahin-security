@@ -1,3 +1,4 @@
+/*
 package com.auth.security.config;
 
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -86,3 +87,4 @@ public class JdbcTokenStore implements TokenStore {
 
     // Implement the remaining methods of the TokenStore interface using JdbcTemplate
 }
+*/

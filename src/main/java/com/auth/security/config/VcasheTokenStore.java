@@ -31,7 +31,7 @@ import java.util.List;
 @Service
 public class VcasheTokenStore implements TokenStore {
 
-    private static final Log LOG = LogFactory.getLog(JdbcTokenStore.class);
+    private static final Log LOG = LogFactory.getLog(VcasheTokenStore.class);
 
     private static final String DEFAULT_ACCESS_TOKEN_INSERT_STATEMENT = "insert into oauth_access_token (token_id, token, authentication_id, user_name, client_id, authentication, refresh_token, expiration) values (?, ?, ?, ?, ?, ?, ?, ?)";
 
