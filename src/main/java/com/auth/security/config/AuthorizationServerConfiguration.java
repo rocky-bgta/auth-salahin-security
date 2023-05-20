@@ -22,7 +22,11 @@ import org.springframework.security.oauth2.provider.token.store.InMemoryTokenSto
 public class AuthorizationServerConfiguration extends AuthorizationServerConfigurerAdapter {
 
     private static final String RESOURCE_ID = "myrestservice";
-    TokenStore tokenStore = new InMemoryTokenStore();
+
+    @Autowired
+    private TokenStore tokenStore;
+
+    //TokenStore tokenStore = new InMemoryTokenStore();
 
     @Autowired
     @Qualifier("authenticationManagerBean")
@@ -49,6 +53,7 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
     @Primary
     public DefaultTokenServices tokenServices(){
         DefaultTokenServices defaultTokenServices = new DefaultTokenServices();
+        defaultTokenServices.setSupportRefreshToken(true);
         defaultTokenServices.setTokenStore(this.tokenStore);
         return defaultTokenServices;
     }
@@ -60,7 +65,8 @@ public class AuthorizationServerConfiguration extends AuthorizationServerConfigu
                         .withClient("myClientApp")
                         .authorizedGrantTypes("password","refresh_token")
                         .scopes("read","write","trust")
-                        .secret(passwordEncoder.encode("9999"))
+                        .secret(encoder().encode("9999"))
+                        .accessTokenValiditySeconds(24 * 365 * 60 * 60)
                         .resourceIds(RESOURCE_ID);
     }
 

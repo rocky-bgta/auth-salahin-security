@@ -27,7 +27,13 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                 .antMatchers("/authenticate").permitAll()
                 .antMatchers("/admin/*").hasAnyRole("ADMIN")
                 .antMatchers("/hello/*").hasAnyRole("SUPPORT")
-                .anyRequest()
-                .authenticated();
+                    .authenticated()
+                .and()
+                    .logout()
+                    .invalidateHttpSession(true)
+                    .clearAuthentication(true)
+                    .deleteCookies("JSESSIONID")
+                    .logoutUrl("/logout")
+                    .logoutSuccessHandler(new CustomLogoutHandler());
     }
 }
