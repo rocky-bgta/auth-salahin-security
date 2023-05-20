@@ -1,6 +1,7 @@
 package com.auth.security.config;
 
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import javax.servlet.ServletException;
@@ -32,6 +33,7 @@ public class CustomLogoutHandler implements LogoutSuccessHandler  {
 			Authentication paramAuthentication) throws IOException,
 			ServletException {
 		removeaccess(paramHttpServletRequest);
+		SecurityContextHolder.clearContext();
 		paramHttpServletResponse.getOutputStream().write("\n\tYou Have Logged Out successfully.".getBytes());
 		
 	}
