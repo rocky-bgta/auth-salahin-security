@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 
-public class LogoutImpl implements LogoutSuccessHandler  {
+public class CustomLogoutHandler implements LogoutSuccessHandler  {
 
 	//private final static Logger LOGGER = Logger.getLogger(LogoutImpl.class);
 	

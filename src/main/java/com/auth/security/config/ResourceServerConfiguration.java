@@ -5,7 +5,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
-import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 @Configuration
 @EnableResourceServer
@@ -30,6 +29,6 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
                     .clearAuthentication(true)
                     .deleteCookies("JSESSIONID")
                     .logoutUrl("/logout")
-                    .logoutSuccessHandler(new LogoutImpl());
+                    .logoutSuccessHandler(new CustomLogoutHandler());
     }
 }
